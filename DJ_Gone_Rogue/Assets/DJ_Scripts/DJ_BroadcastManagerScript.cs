@@ -14,6 +14,7 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		//process all the broacasts
 		while(m_broadcastQueue.Count > 0)
 		{
 			DJ_Broadcast _b = m_broadcastQueue.Dequeue();
