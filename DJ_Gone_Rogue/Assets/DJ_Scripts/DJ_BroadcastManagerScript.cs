@@ -7,13 +7,24 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		m_broadcastList = new List<DJ_Broadcast>();
+		m_broadcastQueue = new Queue<DJ_Broadcast>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		while(m_broadcastQueue.Count > 0)
+		{
+			DJ_Broadcast _b = m_broadcastQueue.Dequeue();
+
+			switch(_b.receiver)
+			{
+			case DJ_BroadcastID.TileManager:
+				break;
+			case DJ_BroadcastID.PlayerManager:
+				break;
+			}
+		}
 	}
 	
 	public void SendBroadcast(DJ_BroadcastID _sender, DJ_BroadcastID _receiver, Object _data)
@@ -42,7 +53,7 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 		}
 
 		//add the broadcast to the queue to be processed
-		m_broadcastList.Add(_b);
+		m_broadcastQueue.Enqueue(_b);
 	}
 
 	public void SendBroadcast(DJ_Broadcast broadcast)
@@ -50,7 +61,7 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 		
 	}
 
-	private List<DJ_Broadcast> m_broadcastList;
+	private Queue<DJ_Broadcast> m_broadcastQueue;
 	private Stack<DJ_Broadcast> m_broadcastPool;
 }
 
