@@ -8,6 +8,7 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 	void Start ()
 	{
 		m_broadcastQueue = new Queue<DJ_Broadcast>();
+		m_broadcastPool = new Stack<DJ_Broadcast>();
 	}
 	
 	// Update is called once per frame
