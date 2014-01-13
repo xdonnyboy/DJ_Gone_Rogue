@@ -23,6 +23,8 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 				break;
 			case DJ_BroadcastID.PlayerManager:
 				break;
+			default:
+				break;
 			}
 		}
 	}
