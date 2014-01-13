@@ -96,4 +96,8 @@ git status
 git checkout master
 git push
 
-Don't actually push cuz I don't want that shit on the  repo. but you get the idea. Always make changes on branches. Don't make actually code changes in your master branch because you don't want to fuck that shit up. If you are gonna make changes, work on a branch and then merge that branch with your master branch then push to the remote repository
+Don't actually push cuz I don't want that shit on the  repo. but you get 
+the idea. Always make changes on branches. Don't make actually code changes 
+in your master branch because you don't want to fuck that shit up. If you 
+are gonna make changes, work on a branch and then merge that branch with 
+your master branch then push to the remote repository
