@@ -7,16 +7,40 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		m_broadcastList = new List<DJ_Broadcast>();
+		m_broadcastQueue = new Queue<DJ_Broadcast>();
+		m_broadcastPool = new Stack<DJ_Broadcast>();
+
+		int _num = 15;
+
+		for(int i = 0; i < _num; ++i)
+		{
+			m_broadcastPool.Push(new DJ_Broadcast());
+		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		//process all the broacasts
+		while(m_broadcastQueue.Count > 0)
+		{
+			DJ_Broadcast _b = m_broadcastQueue.Dequeue();
+
+			switch(_b.receiver)
+			{
+			case DJ_BroadcastID.ALL:
+				break;
+			case DJ_BroadcastID.TILE:
+				break;
+			case DJ_BroadcastID.PLAYER:
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	
-	public void SendBroadcast(DJ_BroadcastID _sender, DJ_BroadcastID _receiver, Object _data)
+	public void SendBroadcast(DJ_BroadcastID _sender, DJ_BroadcastID _receiver, DJ_GameData _data)
 	{
 		//declare the broadcast to be processed
 		DJ_Broadcast _b;
@@ -42,7 +66,7 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 		}
 
 		//add the broadcast to the queue to be processed
-		m_broadcastList.Add(_b);
+		m_broadcastQueue.Enqueue(_b);
 	}
 
 	public void SendBroadcast(DJ_Broadcast broadcast)
@@ -50,19 +74,6 @@ public class DJ_BroadcastManagerScript : MonoBehaviour
 		
 	}
 
-	private List<DJ_Broadcast> m_broadcastList;
+	private Queue<DJ_Broadcast> m_broadcastQueue;
 	private Stack<DJ_Broadcast> m_broadcastPool;
-}
-
-/// <summary>
-/// D j_ broadcast IDs. Used to identify who is sending/receiving the broadcast.
-/// </summary>
-public enum DJ_BroadcastID
-{
-	TileManager = 0,
-	PlayerManager,
-	EnemyManager,
-	ItemManager,
-	LevelManager,
-	//anything else we may need
 }

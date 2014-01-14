@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// D j_ entity script. This is a script that represents the
@@ -21,11 +22,11 @@ public class DJ_EntityScript : MonoBehaviour
 	public virtual void Start ()
 	{
 		m_parent = null;
-		m_children = new ArrayList();
+		m_children = new List<Transform>();
 
 		//assign the sprite (the one assigned via the  inspector) to that of the Sprite Renderer component
 		//that is attached to this entity
-		m_texture = (GetComponentInChildren(typeof(MeshRenderer)) as MeshRenderer).material.mainTexture;
+		Debug.Log(m_texture);
 	}
 	
 	// Update is called once per frame
@@ -66,9 +67,9 @@ public class DJ_EntityScript : MonoBehaviour
 	/// </summary>
 	public Texture m_texture;
 	
-	public ArrayList m_children;
+	public List<Transform> m_children;
 	
-	public GameObject m_parent;
+	public Transform m_parent;
 }
 
 
