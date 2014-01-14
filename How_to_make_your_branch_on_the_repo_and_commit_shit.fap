@@ -74,6 +74,10 @@ Then to update your  local branch
 	git checkout yourBranch
 	git merge master
 
+Then branch off of "your" local branch to make changes to code and shiet.
+annd then merge to "your" branch when you are done and do the  commit stuff.
+Rinse and repeat.
+
 Aaaaaaand doneskies!
 
 
