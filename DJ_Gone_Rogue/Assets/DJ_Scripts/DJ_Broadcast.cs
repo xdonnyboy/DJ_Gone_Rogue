@@ -3,13 +3,19 @@ using System.Collections;
 
 public class DJ_Broadcast
 {
+	public DJ_Broadcast()
+		: this(DJ_BroadcastID.NONE, DJ_BroadcastID.NONE)
+	{
+
+	}
+
 	public DJ_Broadcast(DJ_BroadcastID sender, DJ_BroadcastID receiver)
 		: this(sender, receiver, null)
 	{
 
 	}
 
-	public DJ_Broadcast(DJ_BroadcastID sender, DJ_BroadcastID receiver, Object data)
+	public DJ_Broadcast(DJ_BroadcastID sender, DJ_BroadcastID receiver, DJ_GameData data)
 	{
 		this.sender = sender;
 		this.receiver = receiver;
@@ -29,7 +35,7 @@ public class DJ_Broadcast
 	/// <summary>
 	/// The data.
 	/// </summary>
-	public Object data;
+	public DJ_GameData data;
 
 	/// <summary>
 	/// The time at which the broadcast was sent.
