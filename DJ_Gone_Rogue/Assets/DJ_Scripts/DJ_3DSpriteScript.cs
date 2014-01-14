@@ -47,3 +47,4 @@ public class DJ_3DSpriteScript : DJ_EntityScript {
 	//it should only be used to reflect to visual state of this entity
 	private Transform m_spriteTransform;
 }
+y
