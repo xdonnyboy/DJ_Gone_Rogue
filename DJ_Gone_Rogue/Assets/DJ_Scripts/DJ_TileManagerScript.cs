@@ -21,7 +21,7 @@ public class DJ_TileManagerScript : DJ_ManagerScript
 		//it at the origin anyway
 		gameObject.transform.position = Vector3.zero;
 
-		m_pooledTiles = new ArrayList();
+		//m_pooledTiles = new ArrayList();
 		m_activeTiles = new ArrayList();
 		
 		FromFile("");
@@ -31,6 +31,16 @@ public class DJ_TileManagerScript : DJ_ManagerScript
 	public override void Update ()
 	{
 		base.Update  ();
+	}
+
+	public static void ReceiveBroadcast(ref DJ_Broadcast broadcast)
+	{
+
+	}
+
+	public static void SendBroadcast()
+	{
+
 	}
 
 	public override void FromFile (string path)
@@ -50,9 +60,11 @@ public class DJ_TileManagerScript : DJ_ManagerScript
 	{
 		Vector3 _p = Vector3.zero;
 
-		for (int x = 0; x < n; x++) {
+		for (int x = 0; x < n; x++)
+		{
 			_p.z = 0;
-			for (int z = 0; z < n; z++) {
+			for (int z = 0; z < n; z++)
+			{
 				//Create the tile object and tag it as a GameObject
 				GameObject _t = (GameObject.Instantiate (m_tilePrefab)) as GameObject;
 
