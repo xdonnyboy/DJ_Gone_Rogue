@@ -70,6 +70,20 @@ public class DJ_EntityScript : MonoBehaviour
 	public List<Transform> m_children;
 	
 	public Transform m_parent;
+
+	/// <summary>
+	/// Component variables used for all objects
+	/// E.G. Player, Enemies, Tiles, Items.
+	/// </summary>
+
+	// Size of the object
+	public DJ_Point size;
+	// Position of the object based on the grid system
+	public DJ_Point tilePos;
+	// Position of the object based on the world coordinates
+	public Vector3 truePos;
+	// Direction of the object for movement
+	public DJ_Dir direction;
 }
 
 
