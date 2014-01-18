@@ -5,6 +5,10 @@ Temp/
 Obj/
 UnityGenerated/
 Library/
+Standard\ Assets\ \(Mobile\)/
+Standard\ Assets/
+*.unity
+*.unity.*
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
