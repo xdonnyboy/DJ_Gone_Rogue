@@ -42,7 +42,7 @@ public class DJ_LevelManager : MonoBehaviour {
 			//print (playerTilePos);
 
 			//now update the nearby tiles if we need to
-			UpdateNearbyTilesLocations (playerTilePos);
+			GetTilesNearLocation (playerTilePos);
 
 			ResolvePlayerTileCollision (playerTilePos);
 		}
@@ -63,21 +63,21 @@ public class DJ_LevelManager : MonoBehaviour {
 				if (tileMap.ContainsKey (playerTilePos))
 				{
 					GameObject tileUnderPlayer = tileMap [playerTilePos];
-					//(tileUnderPlayer.GetComponent (typeof(DJ_Damageable)) as DJ_Damageable).hp -= 1.0f;
+					(tileUnderPlayer.GetComponent (typeof(DJ_Damageable)) as DJ_Damageable).hp -= 1.0f;
 
-//					if (!(tileUnderPlayer.GetComponent (typeof(DJ_Damageable)) as DJ_Damageable).isAlive)
-//					{
-//						tileMap.Remove (playerTilePos);
-//						//de activate the tile
-//						tileUnderPlayer.SetActive (false);
-//						//put the tile in the pool
-//						tilePool.Add (tileUnderPlayer);
-//
-//						tileBroke = true;
-//
-//						//TODO - tile break event
-//						print ("Tile broke");
-//					}
+					if (!(tileUnderPlayer.GetComponent (typeof(DJ_Damageable)) as DJ_Damageable).isAlive)
+					{
+						tileMap.Remove (playerTilePos);
+						//de activate the tile
+						tileUnderPlayer.SetActive (false);
+						//put the tile in the pool
+						tilePool.Add (tileUnderPlayer);
+
+						tileBroke = true;
+
+						//TODO - tile break event
+						print ("Tile broke");
+					}
 				}
 			}
 
@@ -89,7 +89,7 @@ public class DJ_LevelManager : MonoBehaviour {
 		}
 	}
 
-	void UpdateNearbyTilesLocations (DJ_Point playerTilePos)
+	void GetTilesNearLocation (DJ_Point playerTilePos)
 	{
 		//if the player has moved tiles, we need to update the closest ones
 		if (!prevPlayerTilePos.Equals (playerTilePos))
@@ -188,5 +188,5 @@ public class DJ_LevelManager : MonoBehaviour {
 
 	public GameObject player;
 
-	public GameObject playerPrefab, tilePrefab;
+	public GameObject playerPrefab, tilePrefab, enemyPrefab;
 }
