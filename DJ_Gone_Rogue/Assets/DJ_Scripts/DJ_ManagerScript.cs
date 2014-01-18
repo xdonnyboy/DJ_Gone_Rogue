@@ -25,11 +25,6 @@ public class DJ_ManagerScript : MonoBehaviour
 
 	}
 
-	public virtual void ReceiveBroadcast(DJ_Broadcast broadcast)
-	{
-
-	}
-
 	/// <summary>
 	/// Releases all resource used by the <see cref="DJ_ManagerScript"/> object.
 	/// </summary>
