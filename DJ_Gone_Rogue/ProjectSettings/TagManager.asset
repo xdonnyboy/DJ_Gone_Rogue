@@ -3,6 +3,16 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - DJ_Tile
+  - DJ_Player
+  - DJ_PlayerManager
+  - DJ_EnemyManager
+  - DJ_TileManager
+  - DJ_HUDManager
+  - DJ_ItemManager
+  - DJ_LevelManager
+  - DJ_Item
+  - DJ_Enemy
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
