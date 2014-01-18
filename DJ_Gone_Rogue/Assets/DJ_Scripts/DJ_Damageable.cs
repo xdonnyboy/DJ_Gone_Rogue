@@ -12,9 +12,12 @@ public class DJ_Damageable: MonoBehaviour
 {
 	
 	public virtual void Start() {
+		hp = maxHp;
 	}
 	
 	public virtual void Update(){
+		if(hp <= 0.0f)
+			isAlive = false;
 	}
 
 	/// <summary>
@@ -26,10 +29,10 @@ public class DJ_Damageable: MonoBehaviour
 	public bool isAlive;
 
 	// hp of the entity
-	public int hp;
+	public float hp;
 
 	// max hp of the entity
-	public int maxHp;
+	public float maxHp;
 
 	// amount of last damage taken 
 	public int damageOfLastHit;

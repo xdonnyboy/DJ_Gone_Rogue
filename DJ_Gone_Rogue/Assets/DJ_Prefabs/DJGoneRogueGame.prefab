@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: DJ_LevelManager
-  m_TagString: Untagged
+  m_TagString: DJ_LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerPrefab: {fileID: 100002, guid: 2946c5486c3aa4d4e9e9a612c3b8392c, type: 2}
   tilePrefab: {fileID: 100000, guid: 7e3cdddc168470546bdfa6fb07e5ae9f, type: 2}
+  enemyPrefab: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

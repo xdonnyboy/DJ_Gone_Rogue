@@ -15,7 +15,7 @@ public class DJ_Heal: IUseEvent
 		healAmount = 0;
 	}
 	
-	public void Trigger() {
+	public override void Trigger() {
 		
 	}
 
