@@ -12,7 +12,7 @@ public class DJ_TileScript : DJ_EntityScript
 	public DJ_TileScript()
 		: base()
 	{
-
+		
 	}
 
 	// Use this for initialization
@@ -33,6 +33,11 @@ public class DJ_TileScript : DJ_EntityScript
 			new Vector3(m_tileMeshTransform.position.x,
 			            m_tileMeshTransform.position.y - (m_tileMeshTransform.GetComponent(typeof(MeshRenderer)) as MeshRenderer).bounds.size.y / 2f,
 			            m_tileMeshTransform.position.z);
+		
+		//Assign the sprite of the tile
+		(transform.GetChild (0).GetComponent (typeof(MeshRenderer)) as MeshRenderer).material.mainTexture = m_tileTextures [0];
+
+		direction = DJ_Dir.NONE;
 	}
 
 	// Update is called once per frame
@@ -46,9 +51,20 @@ public class DJ_TileScript : DJ_EntityScript
 		base.Reset ();
 	}
 
+	public System.Collections.Generic.List<Texture> m_tileTextures;
+
 	private int m_LifeRemaining;
 
 	//this is the mesh that represents the visual aspect of the tile
 	//this should only be used to reflect the visual state of the tile
 	private Transform m_tileMeshTransform;
+
+	public DJ_TileType type;
+
+	public enum DJ_TileType
+	{
+		TILE = 0,
+		WALL,
+		DOOR,
+	}
 }
