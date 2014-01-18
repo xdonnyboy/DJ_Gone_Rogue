@@ -14,6 +14,35 @@ public static class DJ_Util
 		tilePos.Y = (int)(position.z + .5f);
 	}
 
+	public static void GetNeighboringTilePos(DJ_Point currTilePos, DJ_Point targetTilePos, DJ_Dir direction)
+	{
+		GetNeighboringTilePos(currTilePos, targetTilePos, direction,  1);
+	}
+
+	public static void GetNeighboringTilePos(DJ_Point currTilePos, DJ_Point targetTilePos, DJ_Dir direction, int dist)
+	{
+		targetTilePos.X = currTilePos.X;
+		targetTilePos.Y = currTilePos.Y;
+
+		switch(direction)
+		{
+		case DJ_Dir.DOWN:
+			targetTilePos.Y += 1;
+			break;
+		case DJ_Dir.UP:
+			targetTilePos.Y += -1;
+			break;
+		case DJ_Dir.LEFT:
+			targetTilePos.X += -1;
+			break;
+		case DJ_Dir.RIGHT:
+			targetTilePos.X += 1;
+			break;
+		default:
+			break;
+		}
+	}
+
 	/// <summary>
 	/// Smooth lerp along trajectory. Used primarily for hopping between tiles.
 	/// </summary>
@@ -25,7 +54,7 @@ public static class DJ_Util
 	{
 		float yDir = 1.0f;
 
-		if(Mathf.Abs(targetTilePos.X - currPos.x < .5f) || Mathf.Abs(targetTilePos.Y - currPos.z) < .5f)
+		if(Mathf.Abs(targetTilePos.X - currPos.x) < .5f || Mathf.Abs(targetTilePos.Y - currPos.z) < .5f)
 			yDir = -1.0f;
 
 		if(Mathf.Abs(targetTilePos.X - currPos.x) == 0.0f || Mathf.Abs(targetTilePos.Y - currPos.z) == 0.0f)
