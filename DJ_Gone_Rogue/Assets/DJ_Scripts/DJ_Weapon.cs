@@ -14,7 +14,7 @@ public class DJ_Weapon: IUseable
 	{
 	}
 	
-	public void Useable() {
+	public override void Useable() {
 	}
 
 	// Registers the type of item this entity is. 
