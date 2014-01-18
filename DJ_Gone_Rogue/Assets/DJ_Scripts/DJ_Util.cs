@@ -27,16 +27,16 @@ public static class DJ_Util
 		switch(direction)
 		{
 		case DJ_Dir.DOWN:
-			targetTilePos.Y += 1;
+			targetTilePos.Y += dist;
 			break;
 		case DJ_Dir.UP:
-			targetTilePos.Y += -1;
+			targetTilePos.Y += -dist;
 			break;
 		case DJ_Dir.LEFT:
-			targetTilePos.X += -1;
+			targetTilePos.X += -dist;
 			break;
 		case DJ_Dir.RIGHT:
-			targetTilePos.X += 1;
+			targetTilePos.X += dist;
 			break;
 		default:
 			break;
