@@ -10,4 +10,5 @@ public enum DJ_Dir
 	LEFT,
 	DOWN,
 	RIGHT,
+	NONE,
 }
