@@ -25,10 +25,10 @@ public static class DJ_Util
 	{
 		float yDir = 1.0f;
 
-		if(targetTilePos.X - currPos.x < .5f || targetTilePos.Y - currPos.z < .5f)
+		if(Mathf.Abs(targetTilePos.X - currPos.x < .5f) || Mathf.Abs(targetTilePos.Y - currPos.z) < .5f)
 			yDir = -1.0f;
 
-		if(targetTilePos.X - currPos.x == 0.0f || targetTilePos.Y - currPos.z == 0.0f)
+		if(Mathf.Abs(targetTilePos.X - currPos.x) == 0.0f || Mathf.Abs(targetTilePos.Y - currPos.z) == 0.0f)
 			yDir = 0.0f;
 
 		float currHeight = currPos.y;
