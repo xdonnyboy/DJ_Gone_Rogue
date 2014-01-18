@@ -8,7 +8,7 @@ public class DJ_Unlock: IUseEvent
 		isTriggered = false;
 	}
 
-	public void Trigger() {
+	public override void Trigger() {
 		
 	}
 	
