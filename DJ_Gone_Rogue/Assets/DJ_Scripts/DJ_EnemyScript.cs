@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Basic enemy script
@@ -15,20 +16,23 @@ public class DJ_EnemyScript : DJ_3DSpriteScript
 	public int health = 100;
 	private int low_health = 25;
 
-	// determine how many enemies will be instantiated
-	public int enemy_count = 0;
-
 	public Transform _enemy;
+
+	//dictionary for enemy
+	Dictionary<string, int> enemy_list = new Dictionary<string, int>();
 
 	public DJ_EnemyScript()
 	{
 		
 	}
 
+	public Transform DJ_Enemy;
+
 	//  instantiate enemy
 	void instantiateEnemy(int x, int y, int z)
 	{
-				Instantiate  (_enemy, new Vector3 (x, y, z), transform.rotation);
+				//instantiate enemy prefab
+				Instantiate  (DJ_Enemy, new Vector3 (x, y, z), transform.rotation);
 	}
 	
 	// Use this for initialization
