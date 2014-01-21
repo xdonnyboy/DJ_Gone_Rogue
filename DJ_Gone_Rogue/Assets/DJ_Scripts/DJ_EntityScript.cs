@@ -24,15 +24,20 @@ public class DJ_EntityScript : MonoBehaviour
 		m_parent = null;
 		m_children = new List<Transform>();
 
+		tilePos = new DJ_Point(0,0);
+		size = new DJ_Point(0,0);
+		direction = DJ_Dir.NONE;
+
 		//assign the sprite (the one assigned via the  inspector) to that of the Sprite Renderer component
 		//that is attached to this entity
-		Debug.Log(m_texture);
+		//Debug.Log(m_texture);
 	}
 	
 	// Update is called once per frame
 	public virtual void Update ()
 	{
-	
+		tilePos.X = (int)(transform.position.x + .5f);
+		tilePos.Y = (int)(transform.position.z + .5f);
 	}
 
 	/// <summary>
@@ -70,6 +75,20 @@ public class DJ_EntityScript : MonoBehaviour
 	public List<Transform> m_children;
 	
 	public Transform m_parent;
+
+	/// <summary>
+	/// Component variables used for all objects
+	/// E.G. Player, Enemies, Tiles, Items.
+	/// </summary>
+
+	// Size of the object
+	public DJ_Point size;
+	// Position of the object based on the grid system
+	public DJ_Point tilePos;
+	// Position of the object based on the world coordinates
+	public Vector3 truePos;
+	// Direction of the object for movement
+	public DJ_Dir direction;
 }
 
 
