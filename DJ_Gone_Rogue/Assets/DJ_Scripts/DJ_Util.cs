@@ -38,6 +38,8 @@ public static class DJ_Util
 		case DJ_Dir.RIGHT:
 			targetTilePos.X += dist;
 			break;
+		case DJ_Dir.NONE:
+			break;
 		default:
 			break;
 		}
@@ -50,21 +52,42 @@ public static class DJ_Util
 	/// <param name="targetTilePos">Target tile position.</param>
 	/// <param name="targetHeight">Target height.</param>
 	/// <param name="animationTime">Animation time.</param>
-	public static void SLerpTrajectory(ref Vector3 currPos, DJ_Point targetTilePos, float targetHeight, float animationTime)
+	public static bool SLerpTrajectory(ref Vector3 currPos, DJ_Point targetTilePos, float targetHeight, float animationTime)
 	{
+		float diffX = Mathf.Abs(targetTilePos.X - currPos.x);
+		float diffY = Mathf.Abs(targetTilePos.Y - currPos.z);
+
+		float tarHeight = targetHeight;
+		
 		float yDir = 1.0f;
 
-		if(Mathf.Abs(targetTilePos.X - currPos.x) < .5f || Mathf.Abs(targetTilePos.Y - currPos.z) < .5f)
+		if(diffX < .5f || diffY < .5f)
+		{
 			yDir = -1.0f;
+			tarHeight = 0.0f;
+		}
 
-		if(Mathf.Abs(targetTilePos.X - currPos.x) == 0.0f || Mathf.Abs(targetTilePos.Y - currPos.z) == 0.0f)
+		if(diffX == 0.5f || diffY == 0.5f)
+		{
 			yDir = 0.0f;
+			tarHeight= 0.0f;
+		}
+
+		if(diffX < .001f || diffY < .001f)
+		{
+			currPos.y = 0.0f;
+			currPos.x = (float)targetTilePos.X;
+			currPos.z = (float)targetTilePos.Y;
+			return true;
+		}
 
 		float currHeight = currPos.y;
 
 		currPos.x += (targetTilePos.X - currPos.x) / animationTime;
 		currPos.z += (targetTilePos.Y - currPos.z) / animationTime;
 
-		currPos.y += ( (targetHeight - currHeight) / animationTime ) * yDir;
+		currPos.y += ( (tarHeight - currHeight) / (animationTime * 2) ) * yDir;
+
+		return false;
 	}
 }
