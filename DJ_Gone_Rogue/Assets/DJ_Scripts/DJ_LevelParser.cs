@@ -6,15 +6,24 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-/* DJ_LevelManager contains two public lists a tile list and an enemy list
- * it then parses an xml file to fill up these lists opn start
- */
+/// <summary>
+/// DJ_LevelParser.cs: This script is responsible for parsing and XML file
+/// corresponding to a level and extracting all the data and serializing it 
+/// into lists.The other managers i.e Player, Tile, Enemy, Item then access 
+/// this information to form the game world.
+/// 
+/// @author - Fernando Carrillo 1/23/2014
+/// </summary>
+
 public class DJ_LevelParser : MonoBehaviour {
 
 	public static List<Player> playerList = new List<Player>();
 	public static List<Tile> tileList = new List<Tile>();
 	public static List<Enemy> enemyList = new List<Enemy>();
-	public bool debug = false;
+	public static List<Wall> wallList = new List<Wall>();
+	public static List<Item> itemList = new List<Item>();
+	public static List<Door> doorList = new List<Door>();
+	public static bool debug = true;
 
 	// Use this for initialization
 	public void Start () {
@@ -28,12 +37,12 @@ public class DJ_LevelParser : MonoBehaviour {
 	}
 
 	//pass in a number to load a level instead of a path
-	public void LoadLevel(int levelnumber){
+	public static void LoadLevel(int levelnumber){
 		LoadLevel("Level"+ levelnumber);
 	}
 	
 	//Opens the XML level File and fills a list of tiles and a list of enemies
-	public void LoadLevel(string path)
+	public static void LoadLevel(string path)
 	{
 		ResetLevel();
 
@@ -62,6 +71,25 @@ public class DJ_LevelParser : MonoBehaviour {
 			}
 		}
 
+		//parses all the player objects
+		XmlNodeList playerNodes = xmlDoc.SelectNodes("level/player");
+		Player player;
+		if(debug) Debug.Log("Trying to iterate through player nodes");
+		foreach(XmlNode node in playerNodes){
+			player = new Player();
+			player.id = XmlConvert.ToInt16(node.SelectSingleNode("id").InnerText);
+			player.x = XmlConvert.ToInt16(node.SelectSingleNode("x").InnerText);
+			player.z = XmlConvert.ToInt16(node.SelectSingleNode("z").InnerText);
+			playerList.Add(player);
+			
+			if(debug){ 
+				Debug.Log("player health = " + player.health);
+				Debug.Log("player id = " + player.id);
+				Debug.Log("player x position" + player.x);
+				Debug.Log("player z position" + player.z);
+			}
+		}
+
 
 		//parses all the enemy objects
 		if(debug) Debug.Log("Trying to iterate through enemy nodes");
@@ -81,28 +109,69 @@ public class DJ_LevelParser : MonoBehaviour {
 			}
 		}
 
-		//parses all the enemy objects
-		if(debug) Debug.Log("Trying to iterate through enemy nodes");
-		XmlNodeList playerNodes = xmlDoc.SelectNodes ("level/player");
-		Player player;
-		foreach(XmlNode node in playerNodes){
-			player = new Player();
-			player.id = XmlConvert.ToInt16(node.SelectSingleNode("id").InnerText);
-			player.x = XmlConvert.ToInt16(node.SelectSingleNode("x").InnerText);
-			player.z = XmlConvert.ToInt16(node.SelectSingleNode("z").InnerText);
-			playerList.Add(player);
+		//parses all the door objects
+		if(debug) Debug.Log("Trying to iterate through door nodes");
+		XmlNodeList doorNodes = xmlDoc.SelectNodes ("level/door");
+		Door door;
+		foreach(XmlNode node in doorNodes){
+			door = new Door();
+			door.id = XmlConvert.ToInt16(node.SelectSingleNode("id").InnerText);
+			door.x = XmlConvert.ToInt16(node.SelectSingleNode("x").InnerText);
+			door.z = XmlConvert.ToInt16(node.SelectSingleNode("z").InnerText);
+			doorList.Add(door);
 
 			if(debug){
-				Debug.Log("player id = " + player.id);
-				Debug.Log("player x position" + player.x);
-				Debug.Log("player z position" + player.z);
+				Debug.Log("door id = " + door.id);
+				Debug.Log("door x position" + door.x);
+				Debug.Log("door z position" + door.z);
 			}
 		}
+
+		//parses all the wall objects
+		if(debug) Debug.Log("Trying to iterate through wall nodes");
+		XmlNodeList wallNodes = xmlDoc.SelectNodes ("level/wall");
+		Wall wall;
+		foreach(XmlNode node in wallNodes){
+			wall = new Wall();
+			wall.id = XmlConvert.ToInt16(node.SelectSingleNode("id").InnerText);
+			wall.x = XmlConvert.ToInt16(node.SelectSingleNode("x").InnerText);
+			wall.z = XmlConvert.ToInt16(node.SelectSingleNode("z").InnerText);
+			wallList.Add(wall);
+			
+			if(debug){
+				Debug.Log("wall id = " + wall.id);
+				Debug.Log("wall x position" + wall.x);
+				Debug.Log("wall z position" + wall.z);
+			}
+		}
+
+		//parses all the item objects
+		if(debug) Debug.Log("Trying to iterate through item nodes");
+		XmlNodeList itemNodes = xmlDoc.SelectNodes ("level/item");
+		Item item;
+		foreach(XmlNode node in itemNodes){
+			item = new Item();
+			item.id = XmlConvert.ToInt16(node.SelectSingleNode("id").InnerText);
+			item.x = XmlConvert.ToInt16(node.SelectSingleNode("x").InnerText);
+			item.z = XmlConvert.ToInt16(node.SelectSingleNode("z").InnerText);
+			itemList.Add(item);
+			
+			if(debug){
+				Debug.Log("item id = " + item.id);
+				Debug.Log("item x position" + item.x);
+				Debug.Log("item z position" + item.z);
+			}
+		}
+
+		//prints out final sizes of all the Lists after parsing a single file
 		if(debug){
 			Debug.Log("Amount of players = " + playerList.Count);
 			Debug.Log("Amount of enemies = " + enemyList.Count);
 			Debug.Log("Amount of tiles = " + tileList.Count);
+			Debug.Log("Amount of walls = " + wallList.Count);
+			Debug.Log("Amount of items = " + itemList.Count);
 		}
+
 	}
 
 	/**
@@ -117,7 +186,7 @@ public class DJ_LevelParser : MonoBehaviour {
      *      Mono.Xml2.XmlTextReader.ReadText (Boolean notWhitespace)... )
      * 
      * */
-	public string GetTextWithoutBOM(TextAsset textAsset)
+	public static string GetTextWithoutBOM(TextAsset textAsset)
 	{
 		MemoryStream memoryStream = new MemoryStream(textAsset.bytes);
 		StreamReader streamReader = new StreamReader(memoryStream, true);	
@@ -128,44 +197,77 @@ public class DJ_LevelParser : MonoBehaviour {
 	}
 
 	//clears the Lists that contain the Tiles Player and enemies
-	public void ResetLevel(){
+	public static void ResetLevel(){
 		playerList.Clear();
 		enemyList.Clear();
 		tileList.Clear();
+		doorList.Clear();
+		itemList.Clear();
+		wallList.Clear();
 	}
 }
 
 //Simple player class
 public class Player{
-	public int health;
 	public int id;
 	public int x, z;
+	public int health;
 	public Player(){
-		health = 0;
-		id = 0;
-		x = z = 0;
+		health = -1;
+		id = -1;
+		x = z = -1;
 	}
 }
 //Simple tile class
 public class Tile{
-	public int health;
 	public int id;
 	public int x, z;
+	public int health;
 	public Tile(){
-		health = 0;
-		id = 0;
-		x = z = 0;
+		health = -1;
+		id = -1;
+		x = z = -1;
 	}
 }
 
 //Simple enemy class
 public class Enemy{
-	public int health;
 	public int id;
 	public int x, z;
+	public int health;
 	public Enemy(){
-		health = 0;
-		id = 0;
-		x = z = 0;
+		health = -1;
+		id = -1;
+		x = z = -1;
+	}
+}
+
+//Simple enemy class
+public class Item{
+	public int id;
+	public int x, z;
+	public Item(){
+		id = -1;
+		x = z = -1;
+	}
+}
+
+//Simple wall class
+public class Wall{
+	public int id;
+	public int x, z;
+	public Wall(){
+		id = -1;
+		x = z = -1;
+	}
+}
+
+//simple door class
+public class Door{
+	public int id;
+	public int x, z;
+	public Door(){
+		id = -1;
+		x = z = -1;
 	}
 }
